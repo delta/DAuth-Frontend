@@ -20,14 +20,11 @@ main{
 }
 
 h2{
-  font-size:4rem;
-  font-weight: 300;
-  line-height: 0;
+  font-size: 3rem;
 }
 
 h6{
   font-size: 1.3rem;
-  font-weight: 100;
 }
 //logo on landing page
 .delta_logo{
@@ -89,14 +86,21 @@ h6{
     outline: none !important;
     }
 }
-#submit_button {
+#submit_button, #allowButton {
+  border: 2px solid #3bbf3b;
+  color: #3bbf3b;
+}
+#submit_button, #allowButton, #denyButton {
   border-radius: 0px;
   height: 35px;
   width: 150px;
   margin: 20px !important;
   background-color: inherit;
-  border: 2px solid #3bbf3b;
-  color: #3bbf3b;
+}
+
+#denyButton{
+  border: 2px solid rgb(119, 119, 119);;
+  color: rgb(119, 119, 119);;
 }
 
 
@@ -129,4 +133,118 @@ h6{
   display: none;
 }
 
-//intl-tel
+//authorise apps
+
+.authoriseAppContainer{
+  padding:7rem 0;
+}
+
+#authoriseTitle, h2,h6, footer{
+    color: inherit;
+    font-weight: 300;
+    text-align: center;
+    // padding: 0 0 0.4em 0;
+    vertical-align: baseline;
+}
+#authoriseTitle, h2, footer{
+  letter-spacing: 4px;
+}
+#userGreeting{
+  color: inherit;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-align: center;
+  vertical-align: baseline;
+}
+#authoriseTitle{
+  font-size: 1rem;
+  margin-top: -.3em;
+}
+
+.headerMain{
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 999;
+  padding: 3em 2em;
+  background: rgba(255, 255, 255, 0.04);
+  -webkit-box-shadow: -1px 4px 28px 0px rgb(0 0 0 / 75%);
+  -moz-box-shadow: -1px 4px 28px 0px rgba(0,0,0,0.75);
+  box-shadow: -1px 4px 28px 0px rgb(0 0 0 / 75%);
+  border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+#authoriseDeltaLogo{
+  height:50px;
+}
+
+#deltaLogo, .mainContent{
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+.mainContent{
+  margin-top: 5rem;
+}
+#deltaLogo{
+  position: absolute;
+  right:2em;
+  margin-top: -0.3rem;
+}
+ .allowAccess, .accessInfo{
+  text-align: left;
+}
+
+.accessInfo{
+  color:rgb(119, 119, 119);
+}
+#userProfileIcon{
+  height:30px;
+  margin: 0 .4rem 0 0;
+}
+
+#thirdPartApp, #userDashboard{
+  color:#3bbf3b;
+  text-decoration: none !important;
+}
+
+.greetingHeader{
+  display: inline-flex;
+}
+#userInfo{
+  position: absolute;
+  left:2em;
+}
+
+@media (max-width: 640px) {
+  .headerMain{
+    max-width: 300px !important;
+  }
+}
+
+//loader
+
+.loader {
+  border: 10px solid #85858561; /* Light grey */
+  border-top: 10px solid #3bbf3b; /* Delta green */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  margin: auto;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.redirectContainer{
+  padding:7rem 0;
+  text-align: center;
+}
+

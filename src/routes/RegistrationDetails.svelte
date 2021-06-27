@@ -129,7 +129,6 @@
   <div class="center">
     <h2 class="Dauth_title">DAuth</h2>
     <h6>Please enter the details to create an account!</h6>
-    <br />
     <div class="form" />
     <input
       type="text"

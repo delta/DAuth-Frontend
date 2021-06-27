@@ -6,11 +6,13 @@
 </style>
 
 <script lang="ts">
+  import AuthorizeApp from './routes/AuthorizeApp.svelte';
   import { navigate } from 'svelte-routing';
   import RegistrationDetails from './routes/RegistrationDetails.svelte';
   import { Router, Link, Route } from 'svelte-routing';
   import Register from './routes/Register.svelte';
   import Login from './routes/Login.svelte';
+  import Redirect from './routes/Redirect.svelte';
   import ThemeContext from './ThemeContext.svelte';
   import ThemeToggle from './ThemeToggle.svelte';
   import { toasts, ToastContainer, FlatToast } from 'svelte-toasts';
@@ -55,7 +57,7 @@
         localStorage.removeItem('isDAuth');
         auth.set(localStorage.getItem('isDAuth'));
         isauth = $auth;
-        if (!localStorage.getItem('isDAuth')) navigate('/', { replace: true });
+        // if (!localStorage.getItem('isDAuth')) navigate('/', { replace: true });
         toasts.add({
           title: 'Success!',
           description: response.data.message,
@@ -121,6 +123,8 @@
       <Route path="/login" component={Login} bind:isauth />
       <Route path="/dashboard" component={Dashboard} bind:isauth />
       <Route path="/registerdetails" component={RegistrationDetails} bind:isauth />
+      <Route path="/authorize" component={AuthorizeApp} bind:isauth />
+      <Route path="/redirect" component={Redirect} bind:isauth />
       <Route path="/" component={Register} bind:isauth />
     </div>
     <ThemeToggle />

@@ -12,6 +12,7 @@
   import { toasts, ToastContainer } from 'svelte-toasts';
   import config from '../../env';
   import { getContext } from 'svelte';
+  import { authorizeSession } from 'src/utils/authorizeSession';
   let { theme } = getContext('theme');
   export let isauth = localStorage.getItem('isDAuth');
   if (isauth && isauth == 'true') navigate('/dashboard', { replace: true });
@@ -37,7 +38,8 @@
         .then(response => {
           localStorage.setItem('isDAuth', 'true');
           auth.set('true');
-          navigate('/dashboard', { replace: true });
+          if ($authorizeSession == false) navigate('/dashboard', { replace: true });
+          else navigate('/redirect', { replace: true });
           toasts.add({
             title: 'Success!',
             description: response.data.message,
@@ -89,7 +91,6 @@
     alt="Delta logo"
   />
   <h2 class="Dauth_title">DAuth</h2>
-  <br />
   <input
     type="text"
     class="input_details"

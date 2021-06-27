@@ -87,7 +87,6 @@
   />
   <h2 class="Dauth_title">DAuth</h2>
   <h6>Please enter your roll number to get started with DAuth!</h6>
-  <br />
   <input
     type="text"
     class="input_details"
