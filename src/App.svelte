@@ -57,7 +57,7 @@
         localStorage.removeItem('isDAuth');
         auth.set(localStorage.getItem('isDAuth'));
         isauth = $auth;
-        // if (!localStorage.getItem('isDAuth')) navigate('/', { replace: true });
+        if (!localStorage.getItem('isDAuth')) navigate('/', { replace: true });
         toasts.add({
           title: 'Success!',
           description: response.data.message,

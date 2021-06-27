@@ -64,7 +64,7 @@
         placement: 'bottom-right',
         type: 'error',
         showProgress: true,
-        theme: localStorage.getItem('DAuth-theme')
+        theme: $theme.name
       });
     });
   }
@@ -115,16 +115,12 @@
           <Button
             Tile
             id="denyButton"
-            on:click={e => {
-              denyAccess();
-            }}>Deny</Button
+            on:click={denyAccess}>Deny</Button
           >
           <Button
             Tile
             id="allowButton"
-            on:click={e => {
-              authorizeApp();
-            }}>Allow</Button
+            on:click={authorizeApp}>Allow</Button
           >
         </div>
       </div>

@@ -10,14 +10,10 @@
   import { params } from './../utils/queryParams';
   import { authorizeSession } from './../utils/authorizeSession';
   import { navigate } from 'svelte-routing';
-  import { toasts, ToastContainer } from 'svelte-toasts';
+  import { toasts } from 'svelte-toasts';
   import config from '../../env';
   import { axiosInstance } from '../utils/axios';
-  import { Button } from 'svelte-materialify';
-  // export let isauth = localStorage.getItem('isDAuth');
   import { getContext, onMount } from 'svelte';
-  import Login from './Login.svelte';
-  import AuthorizeApp from './AuthorizeApp.svelte';
   let { theme } = getContext('theme');
 
   onMount(() => {
@@ -52,7 +48,7 @@
             placement: 'bottom-right',
             type: 'error',
             showProgress: true,
-            theme: localStorage.getItem('DAuth-theme')
+            theme: $theme.name
           });
         });
     } else {
