@@ -22,59 +22,46 @@
     rollno = e.target.value;
   }
   function verify() {
-    let value = Number(rollno);
-    if (value && value > 99999999 && value < 1000000000 && !isNaN(value)) {
-      let email = rollno + '@nitt.edu';
-      axiosInstance({
-        method: 'post',
-        url: `${config.backendurl}/auth/start`,
-        data: {
-          email: email.toString()
-        },
-        headers: { 'Content-Type': 'application/json' }
-      })
-        .then(response => {
-          navigate('/registerdetails', { replace: true });
-          toasts.add({
-            title: 'Success',
-            description: response.data.message,
-            duration: 10000, // 0 or negative to avoid auto-remove
-            placement: 'bottom-right',
-            type: 'success',
-            showProgress: true,
-            theme: $theme.name
-          });
-        })
-        .catch(error => {
-          let message;
-          if (error.response) {
-            message = error.response.data.message;
-          } else if (error.request) {
-            message = error.request.data.message;
-          } else {
-            message = 'Something went wrong, please try again!';
-          }
-          toasts.add({
-            title: 'Oops',
-            description: message,
-            duration: 10000, // 0 or negative to avoid auto-remove
-            placement: 'bottom-right',
-            type: 'error',
-            showProgress: true,
-            theme: $theme.name
-          });
+    let email = rollno + '@nitt.edu';
+    axiosInstance({
+      method: 'post',
+      url: `${config.backendurl}/auth/start`,
+      data: {
+        email: email.toString()
+      },
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then(response => {
+        navigate('/registerdetails', { replace: true });
+        toasts.add({
+          title: 'Success',
+          description: response.data.message,
+          duration: 10000, // 0 or negative to avoid auto-remove
+          placement: 'bottom-right',
+          type: 'success',
+          showProgress: true,
+          theme: $theme.name
         });
-    } else {
-      toasts.add({
-        title: 'Oops',
-        description: 'Invalid roll number',
-        duration: 10000, // 0 or negative to avoid auto-remove
-        placement: 'bottom-right',
-        type: 'error',
-        showProgress: true,
-        theme: $theme.name
+      })
+      .catch(error => {
+        let message;
+        if (error.response) {
+          message = error.response.data.message;
+        } else if (error.request) {
+          message = error.request.data.message;
+        } else {
+          message = 'Something went wrong, please try again!';
+        }
+        toasts.add({
+          title: 'Oops',
+          description: message,
+          duration: 10000, // 0 or negative to avoid auto-remove
+          placement: 'bottom-right',
+          type: 'error',
+          showProgress: true,
+          theme: $theme.name
+        });
       });
-    }
   }
 </script>
 
