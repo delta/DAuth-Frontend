@@ -7,15 +7,11 @@
 
 <script lang="ts">
   import { navigate } from 'svelte-routing';
-  import { toasts } from 'svelte-toasts';
   import config from '../../env';
-  import { axiosInstance } from '../utils/axios';
   import { Button } from 'svelte-materialify';
-  // export let isauth = localStorage.getItem('isDAuth');
   import { getContext, onMount } from 'svelte';
   import { authorizeSession } from 'src/utils/authorizeSession';
   import { params } from 'src/utils/queryParams';
-  let { theme } = getContext('theme');
 
   onMount(() => {
     let element: HTMLBodyElement = document.querySelector('.navbar');
@@ -32,41 +28,45 @@
         nonce: parameters.get('nonce')
       };
       params.set(newParams);
-      navigate('/redirect', { replace: true });
+      let formBody = [];
+      for (var property in $params) {
+        var encodedKey = encodeURIComponent(property);
+        var encodedValue = encodeURIComponent($params[property]);
+        formBody.push(encodedKey + '=' + encodedValue);
+      }
+      let finalParams = formBody.join('&');
+      navigate(`/redirect?${finalParams}`, { replace: true });
     }
   });
   function authorizeApp() {
-    let formBody = [];
-    for (var property in $params) {
-      var encodedKey = encodeURIComponent(property);
-      var encodedValue = encodeURIComponent($params[property]);
-      formBody.push(encodedKey + '=' + encodedValue);
-    }
-    let finalParams = formBody.join('&');
-    axiosInstance({
-      method: 'post',
-      url: `${config.backendurl}/oauth/authorize`,
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      data: finalParams
-    }).catch(error => {
-      let message;
-      if (error.response) {
-        message = error.response.data.message;
-      } else if (error.request) {
-        message = error.request.data.message;
-      } else {
-        message = 'Something went wrong, please try again!';
-      }
-      toasts.add({
-        title: 'Oops',
-        description: message,
-        duration: 10000, // 0 or negative to avoid auto-remove
-        placement: 'bottom-right',
-        type: 'error',
-        showProgress: true,
-        theme: $theme.name
-      });
-    });
+    document.body.innerHTML +=
+      '<form id="dynForm" action="' +
+      config.backendurl +
+      '/oauth/authorize" method="post">\
+      <input type="hidden" name="client_id" value="' +
+      $params.client_id +
+      '">\
+      <input type="hidden" name="redirect_uri" value="' +
+      $params.redirect_uri +
+      '">\
+      <input type="hidden" name="response_type" value="' +
+      $params.response_type +
+      '">\
+      <input type="hidden" name="grant_type" value="' +
+      $params.grant_type +
+      '">\
+      <input type="hidden" name="state" value="' +
+      $params.state +
+      '">\
+      <input type="hidden" name="scope" value="' +
+      $params.scope +
+      '">\
+      <input type="hidden" name="nonce" value="' +
+      $params.nonce +
+      '">\
+      </form>';
+    let el = <HTMLFormElement>document.getElementById('dynForm');
+    el.submit();
   }
   function denyAccess() {
     location.replace($params.redirect_uri);
@@ -112,16 +112,8 @@
           </p>
         </div>
         <div class="accessButtons">
-          <Button
-            Tile
-            id="denyButton"
-            on:click={denyAccess}>Deny</Button
-          >
-          <Button
-            Tile
-            id="allowButton"
-            on:click={authorizeApp}>Allow</Button
-          >
+          <Button Tile id="denyButton" on:click={denyAccess}>Deny</Button>
+          <Button Tile id="allowButton" on:click={authorizeApp}>Allow</Button>
         </div>
       </div>
     </div>

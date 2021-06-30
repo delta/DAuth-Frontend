@@ -52,8 +52,25 @@
           });
         });
     } else {
-      console.log('hitting here');
-      navigate('/login', { replace: true });
+      const parameters = new URLSearchParams(window.location.search);
+      let newParams = {
+        client_id: parameters.get('client_id'),
+        redirect_uri: parameters.get('redirect_uri'),
+        response_type: 'code',
+        grant_type: parameters.get('grant_type'),
+        state: parameters.get('state'),
+        scope: parameters.get('scope'),
+        nonce: parameters.get('nonce')
+      };
+      params.set(newParams);
+      let formBody = [];
+      for (var property in $params) {
+        var encodedKey = encodeURIComponent(property);
+        var encodedValue = encodeURIComponent($params[property]);
+        formBody.push(encodedKey + '=' + encodedValue);
+      }
+      let finalParams = formBody.join('&');
+      navigate(`/login?${finalParams}`, { replace: true });
     }
   });
 </script>

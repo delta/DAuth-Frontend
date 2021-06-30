@@ -6,6 +6,7 @@
 </style>
 
 <script lang="ts">
+  import { params } from 'src/utils/queryParams';
   import { auth } from 'src/utils/auth';
   import { navigate } from 'svelte-routing';
   import { axiosInstance } from 'src/utils/axios';
@@ -39,7 +40,20 @@
           localStorage.setItem('isDAuth', 'true');
           auth.set('true');
           if ($authorizeSession == false) navigate('/dashboard', { replace: true });
-          else navigate('/redirect', { replace: true });
+          else {
+            const parameters = new URLSearchParams(window.location.search);
+            let newParams = {
+              client_id: parameters.get('client_id'),
+              redirect_uri: parameters.get('redirect_uri'),
+              response_type: 'code',
+              grant_type: parameters.get('grant_type'),
+              state: parameters.get('state'),
+              scope: parameters.get('scope'),
+              nonce: parameters.get('nonce')
+            };
+            params.set(newParams);
+            navigate('/redirect', { replace: true });
+          }
           toasts.add({
             title: 'Success!',
             description: response.data.message,
