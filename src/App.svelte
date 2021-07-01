@@ -23,7 +23,7 @@
   import { auth } from './utils/auth';
   import { Footer } from 'svelte-materialify';
   let isauth = '';
-  let url = '/';
+  let url = '';
   if ($auth) {
     auth.subscribe(value => {
       isauth = value;
@@ -120,11 +120,11 @@
         </nav>
       {/if}
 
-      <Route path="/login" component={Login} bind:isauth />
-      <Route path="/dashboard" component={Dashboard} bind:isauth />
-      <Route path="/registerdetails" component={RegistrationDetails} bind:isauth />
-      <Route path="/authorize" component={AuthorizeApp} bind:isauth />
-      <Route path="/redirect" component={Redirect} bind:isauth />
+      <Route path="login" component={Login} bind:isauth />
+      <Route path="dashboard" component={Dashboard} bind:isauth />
+      <Route path="registerdetails" component={RegistrationDetails} bind:isauth />
+      <Route path="authorize" component={AuthorizeApp} bind:isauth />
+      <Route path="redirect" component={Redirect} bind:isauth />
       <Route path="/" component={Register} bind:isauth />
     </div>
     <ThemeToggle />
