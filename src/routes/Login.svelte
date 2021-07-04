@@ -13,7 +13,6 @@
   import { toasts, ToastContainer } from 'svelte-toasts';
   import config from '../../env';
   import { getContext } from 'svelte';
-  import { authorizeSession } from 'src/utils/authorizeSession';
   import { searchQuery } from 'src/utils/queryHandler';
   let { theme } = getContext('theme');
   export let isauth = localStorage.getItem('isDAuth');

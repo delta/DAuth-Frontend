@@ -34,7 +34,7 @@
         });
       })
       .catch(error => {
-        navigate('/error',{replace:true});
+        navigate('/error', { replace: true });
         toasts.add({
           title: 'Oops',
           description:

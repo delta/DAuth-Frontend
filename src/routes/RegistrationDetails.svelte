@@ -15,7 +15,6 @@
   import intlTelInput from 'intl-tel-input';
   import { onMount, getContext } from 'svelte';
   import '../../node_modules/intl-tel-input/build/css/intlTelInput.css';
-  import { beforeUpdate, each } from 'svelte/internal';
   let { theme } = getContext('theme');
   let phoneInputField;
   let phoneInput;

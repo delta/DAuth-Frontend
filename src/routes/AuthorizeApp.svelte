@@ -10,7 +10,7 @@
   import { navigate } from 'svelte-routing';
   import config from '../../env';
   import { Button } from 'svelte-materialify';
-  import { getContext, onMount } from 'svelte';
+  import { onMount } from 'svelte';
   import { authorizeSession } from 'src/utils/authorizeSession';
   import { params } from 'src/utils/queryParams';
 
