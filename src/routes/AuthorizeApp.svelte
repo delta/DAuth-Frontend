@@ -6,6 +6,7 @@
 </style>
 
 <script lang="ts">
+  import { searchQuery } from './../utils/queryHandler';
   import { navigate } from 'svelte-routing';
   import config from '../../env';
   import { Button } from 'svelte-materialify';
@@ -16,25 +17,8 @@
   onMount(() => {
     let element: HTMLBodyElement = document.querySelector('.navbar');
     element.style.display = 'none';
+    let finalParams = searchQuery();
     if ($authorizeSession == false) {
-      const parameters = new URLSearchParams(window.location.search);
-      let newParams = {
-        client_id: parameters.get('client_id'),
-        redirect_uri: parameters.get('redirect_uri'),
-        response_type: 'code',
-        grant_type: parameters.get('grant_type'),
-        state: parameters.get('state'),
-        scope: parameters.get('scope'),
-        nonce: parameters.get('nonce')
-      };
-      params.set(newParams);
-      let formBody = [];
-      for (var property in $params) {
-        var encodedKey = encodeURIComponent(property);
-        var encodedValue = encodeURIComponent($params[property]);
-        formBody.push(encodedKey + '=' + encodedValue);
-      }
-      let finalParams = formBody.join('&');
       navigate(`/redirect?${finalParams}`, { replace: true });
     }
   });

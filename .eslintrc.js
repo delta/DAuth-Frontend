@@ -28,6 +28,12 @@ module.exports = {
           "@typescript-eslint/restrict-template-expressions":"off",
           "@typescript-eslint/restrict-plus-operands":"off"
         }
+      },
+      {
+        files:['*.ts'],
+        rules:{
+          "@typescript-eslint/no-unsafe-assignment":"off"
+        }
       }
     ],
     settings: {

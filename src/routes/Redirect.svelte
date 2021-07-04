@@ -6,6 +6,7 @@
 </style>
 
 <script lang="ts">
+  import { searchQuery } from './../utils/queryHandler';
   import { auth } from './../utils/auth';
   import { params } from './../utils/queryParams';
   import { authorizeSession } from './../utils/authorizeSession';
@@ -20,6 +21,7 @@
     let element: HTMLBodyElement = document.querySelector('.navbar');
     element.style.display = 'none';
     authorizeSession.set(true);
+    let finalParams = searchQuery();
     if ($auth == 'true') {
       axiosInstance({
         method: 'get',
@@ -30,20 +32,15 @@
         .then(result => {
           const isAuthorized = result.data.isAuthorized;
           if (isAuthorized == true) location.replace(result.data.client.redirectUri);
-          else navigate('/authorize', { replace: true });
+          else navigate(`/authorize?${finalParams}`, { replace: true });
         })
         .catch(error => {
-          let message;
-          if (error.response) {
-            message = error.response.data.message;
-          } else if (error.request) {
-            message = error.request.data.message;
-          } else {
-            message = 'Something went wrong, please try again!';
-          }
           toasts.add({
             title: 'Oops',
-            description: message,
+            description:
+              error.response.data.message ||
+              error.response.data.errors[0].msg ||
+              'Something went wrong, please try again!',
             duration: 10000, // 0 or negative to avoid auto-remove
             placement: 'bottom-right',
             type: 'error',
@@ -52,25 +49,7 @@
           });
         });
     } else {
-      const parameters = new URLSearchParams(window.location.search);
-      let newParams = {
-        client_id: parameters.get('client_id'),
-        redirect_uri: parameters.get('redirect_uri'),
-        response_type: 'code',
-        grant_type: parameters.get('grant_type'),
-        state: parameters.get('state'),
-        scope: parameters.get('scope'),
-        nonce: parameters.get('nonce')
-      };
-      params.set(newParams);
-      let formBody = [];
-      for (var property in $params) {
-        var encodedKey = encodeURIComponent(property);
-        var encodedValue = encodeURIComponent($params[property]);
-        formBody.push(encodedKey + '=' + encodedValue);
-      }
-      let finalParams = formBody.join('&');
-      navigate(`/login?${finalParams}`, { replace: true });
+      navigate(`/?${finalParams}`, { replace: true });
     }
   });
 </script>

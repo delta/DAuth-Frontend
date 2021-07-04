@@ -17,22 +17,21 @@
   if (isauth) {
     navigate('/dashboard', { replace: true });
   }
-  let rollno = '';
+  let webmailId = '';
   function handleChange(e) {
-    rollno = e.target.value;
+    webmailId = e.target.value;
   }
   function verify() {
-    let email = rollno + '@nitt.edu';
     axiosInstance({
       method: 'post',
       url: `${config.backendurl}/auth/start`,
       data: {
-        email: email.toString()
+        email: webmailId
       },
       headers: { 'Content-Type': 'application/json' }
     })
       .then(response => {
-        navigate('/registerdetails', { replace: true });
+        navigate(`/verify?webmailId=${webmailId}`, { replace: true });
         toasts.add({
           title: 'Success',
           description: response.data.message,
@@ -44,17 +43,12 @@
         });
       })
       .catch(error => {
-        let message;
-        if (error.response) {
-          message = error.response.data.message;
-        } else if (error.request) {
-          message = error.request.data.message;
-        } else {
-          message = 'Something went wrong, please try again!';
-        }
         toasts.add({
           title: 'Oops',
-          description: message,
+          description:
+            error.response.data.message ||
+            error.response.data.errors[0].msg ||
+            'Something went wrong, please try again!',
           duration: 10000, // 0 or negative to avoid auto-remove
           placement: 'bottom-right',
           type: 'error',
@@ -73,17 +67,19 @@
     alt="Delta logo"
   />
   <h2 class="Dauth_title">DAuth</h2>
-  <h6>Please enter your roll number to get started with DAuth!</h6>
-  <input
-    type="text"
-    class="input_details"
-    name="rollno"
-    placeholder="Roll Number"
-    on:change={e => {
-      handleChange(e);
-    }}
-  />
-  <br />
-  <Button Tile id="submit_button" type="submit" on:click={verify}>Submit</Button>
+  <h6>Please enter your webmail username to get started with DAuth!</h6>
+  <div class="form">
+    <label for="webmailId">Webmail</label><br />
+    <input
+      type="text"
+      class="input_details"
+      name="webmailId"
+      on:change={e => {
+        handleChange(e);
+      }}
+    />
+    <br />
+    <Button Tile id="submit_button" type="submit" on:click={verify}>Submit</Button>
+  </div>
   <ToastContainer />
 </main>
