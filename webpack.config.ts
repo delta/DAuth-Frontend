@@ -69,7 +69,7 @@ const config: Configuration = {
 		mainFields: ['svelte', 'browser', 'module', 'main']
 	},
 	output: {
-		path: path.resolve(__dirname, './public'),
+		path: path.resolve(__dirname, './public/build'),
 		publicPath: '/',
 		filename: isProduction ? 'app-[contenthash].js' : 'app.js'
 	},

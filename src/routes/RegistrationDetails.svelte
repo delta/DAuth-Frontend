@@ -169,6 +169,7 @@
         bind:value={state.department}
         on:blur={handleChange}
       >
+        <option disabled selected value> -- select an option -- </option>
         {#each departments as department}
           {#if $theme.name == 'dark'}
             <option value={department} style="background:#212121; color:#f1f1f1"
