@@ -10,15 +10,24 @@
   import { auth } from 'src/utils/auth';
   import { navigate } from 'svelte-routing';
   import { axiosInstance } from 'src/utils/axios';
-  import { toasts, ToastContainer } from 'svelte-toasts';
+  import { toasts } from 'svelte-toasts';
   import config from '../../env';
-  import { getContext } from 'svelte';
+  import { getContext, onMount } from 'svelte';
   import { searchQuery } from 'src/utils/queryHandler';
   let { theme } = getContext('theme');
   export let isauth = localStorage.getItem('isDAuth');
   if (isauth && isauth == 'true') navigate('/dashboard', { replace: true });
   let webmailId = '';
   let password = '';
+  onMount(() => {
+    document
+      .querySelector('.form')
+      .addEventListener('keypress', function (e: KeyboardEvent) {
+        if (e.key === 'Enter') {
+          verify();
+        }
+      });
+  });
   function handlechange(e) {
     if (e.target.name == 'webmailId') webmailId = e.target.value;
     else password = e.target.value;
@@ -92,6 +101,7 @@
     <input
       type="password"
       class="input_details"
+      id="password"
       name="password"
       on:change={e => {
         handlechange(e);
@@ -100,5 +110,4 @@
     <br />
     <button id="submit_button" type="submit" on:click={verify}>Submit</button>
   </div>
-  <ToastContainer />
 </main>

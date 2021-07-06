@@ -19,6 +19,15 @@
   let phoneInputField;
   let phoneInput;
   let departments = [];
+  onMount(() => {
+    document
+      .querySelector('.form')
+      .addEventListener('keypress', function (e: KeyboardEvent) {
+        if (e.key === 'Enter') {
+          handleSubmit();
+        }
+      });
+  });
   async function getDepartments() {
     let result = await axiosInstance({
       method: 'get',
@@ -153,15 +162,6 @@
       /><br />
       <br />
       <label for="department">Department</label><br />
-      <!-- <input
-      type="text"
-      class="input_details"
-      id="input_department"
-      name="department"
-      value={state.department}
-      on:change={handleChange}
-    /><br />
-    <br /> -->
       <select
         class="input_details"
         id="input_department"

@@ -7,7 +7,7 @@
 
 <script lang="ts">
   import { axiosInstance } from 'src/utils/axios';
-  import { getContext, onMount } from 'svelte';
+  import { getContext } from 'svelte';
   import { navigate } from 'svelte-routing';
   import { toasts } from 'svelte-toasts';
   import config from '../../env';

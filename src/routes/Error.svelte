@@ -6,12 +6,7 @@
 </style>
 
 <script lang="ts">
-  import { navigate } from 'svelte-routing';
-  import config from '../../env';
-  import { Button } from 'svelte-materialify';
-  import { getContext, onMount } from 'svelte';
-  import { authorizeSession } from 'src/utils/authorizeSession';
-  import { params } from 'src/utils/queryParams';
+  import { onMount } from 'svelte';
   onMount(() => {
     let element: HTMLBodyElement = document.querySelector('.navbar');
     element.style.display = 'none';

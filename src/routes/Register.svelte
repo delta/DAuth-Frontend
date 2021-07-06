@@ -7,16 +7,25 @@
 
 <script lang="ts">
   import { navigate } from 'svelte-routing';
-  import { toasts, ToastContainer } from 'svelte-toasts';
+  import { toasts } from 'svelte-toasts';
   import config from '../../env';
   import { axiosInstance } from '../utils/axios';
   import { Button } from 'svelte-materialify';
   export let isauth = localStorage.getItem('isDAuth');
-  import { getContext } from 'svelte';
+  import { getContext, onMount } from 'svelte';
   let { theme } = getContext('theme');
   if (isauth) {
     navigate('/dashboard', { replace: true });
   }
+  onMount(() => {
+    document
+      .querySelector('.form')
+      .addEventListener('keypress', function (e: KeyboardEvent) {
+        if (e.key === 'Enter') {
+          verify();
+        }
+      });
+  });
   let webmailId = '';
   function handleChange(e) {
     webmailId = e.target.value;
@@ -81,5 +90,4 @@
     <br />
     <Button Tile id="submit_button" type="submit" on:click={verify}>Submit</Button>
   </div>
-  <ToastContainer />
 </main>

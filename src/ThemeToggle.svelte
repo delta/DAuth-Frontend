@@ -1,5 +1,5 @@
 <script>
-  import { getContext, onMount } from 'svelte';
+  import { getContext } from 'svelte';
   const { toggle } = getContext('theme');
   import { Switch } from 'svelte-materialify';
   let { theme } = getContext('theme');
