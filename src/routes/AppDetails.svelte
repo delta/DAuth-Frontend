@@ -1,6 +1,5 @@
 <style>
-  a:link,
-  a:visited {
+  a {
     font-family: sans-serif;
     color: #3bbf3b;
     text-decoration: none;
@@ -72,13 +71,9 @@
 </script>
 
 {#if $theme.name == 'dark'}
-  <Card
-    style="padding:1rem;text-align:center;font-family:sans-serif;display:flex;flex-wrap:wrap;background:#313131"
-  >
-    <CardTitle style="width:100%;justify-content:center;word-break:break-all;"
-      ><b>{clientName}</b></CardTitle
-    >
-    <CardText style="word-break:break-all;">
+  <Card class="appdetails-card" style="background: #414141;">
+    <CardTitle class="appdetails-title-dark"><b>{clientName}</b></CardTitle>
+    <CardText class="appdetails-cardtext">
       Access given on<br />{accessGivenOn}
       <br />
       <a href={homePageUrl}>{homePageUrl}</a>
@@ -86,19 +81,15 @@
       {description}
       <br/>
       <button
-        style="background:none;border:none;color:#ff6347;font-size:1rem;font-family:sans-serif;margin:10px;"
-        on:click={open}><b>Remove access</b></button
+        class="appdetails-button-dark"
+        on:click={open}>Remove access</button
       >
     </CardText>
   </Card>
 {:else}
-  <Card
-    style="padding:1rem;text-align:center;font-family:sans-serif;display:flex;flex-wrap:wrap;"
-  >
-    <CardTitle style="width:100%;justify-content:center;word-break:break-all;"
-      ><b>{clientName}</b></CardTitle
-    >
-    <CardText style="word-break:break-all;">
+  <Card class="appdetails-card">
+    <CardTitle class="appdetails-title-light"><b>{clientName}</b></CardTitle>
+    <CardText class="appdetails-cardtext">
       Access given on<br />{accessGivenOn}
       <br />
       <a href={homePageUrl}>{homePageUrl}</a>
@@ -106,7 +97,7 @@
       {description}
       <br/>
       <button
-        style="background:none;border:none;color:#d0312d;font-size:1rem;font-family:sans-serif;margin:10px;"
+        class="appdetails-button-light"
         on:click={open}><b>Remove access</b></button
       >
     </CardText>
@@ -115,14 +106,14 @@
 
 {#if $theme.name == 'dark'}
   <Dialog bind:active>
-    <Card style="display:flex;flex-wrap:wrap;background:#212121;padding:4px;">
-      <CardTitle style="color:crimson"><b>Remove access?</b></CardTitle>
-      <CardText style="word-break:break-all;">
+    <Card class="appdetails-dialog-card-dark">
+      <CardTitle color:crimson><b>Remove access?</b></CardTitle>
+      <CardText class="appdetails-cardtext">
         {clientName} will no longer have access to your DAuth account. You'll have to grant
         permission if you want to use the service again.
       </CardText>
-      <CardActions style="width:100%;justify-content: center;">
-        <Button on:click={removeAccess} text style="border:solid;border-color:crimson;border-radius:5px;background:none;margin-bottom:1rem;color:#f1f1f1"
+      <CardActions class="appdetails-card-actions">
+        <Button on:click={removeAccess} text class="appdetails-dialog-button-dark"
           >Remove</Button
         >
       </CardActions>
@@ -130,14 +121,14 @@
   </Dialog>
 {:else}
   <Dialog bind:active>
-    <Card style="display:flex;flex-wrap:wrap;background:#f1f1f1;padding:4px;">
-      <CardTitle style="color:crimson"><b>Remove access?</b></CardTitle>
-      <CardText  style="word-break:break-all;">
+    <Card class="appdetails-dialog-card-light">
+      <CardTitle color:crimson><b>Remove access?</b></CardTitle>
+      <CardText  class="appdetails-cardtext">
         {clientName} will no longer have access to your DAuth account. You'll have to grant
         permission if you want to use the service again.
       </CardText>
-      <CardActions style="width:100%;justify-content: center;">
-        <Button on:click={removeAccess} text style="border:solid;border-color:crimson;border-radius:5px;background:none;margin-bottom:1rem;"
+      <CardActions class="appdetails-card-actions">
+        <Button on:click={removeAccess} text class="appdetails-dialog-button-light"
           >Remove</Button
         >
       </CardActions>
