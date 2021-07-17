@@ -78,7 +78,7 @@
             title: 'Oops',
             description:
               error.response.data.message ||
-              error.response.data.errors[0].msg ||
+              error.response.data.errors[1].msg ||
               'Something went wrong, please try again!',
             duration: 10000, // 0 or negative to avoid auto-remove
             placement: 'bottom-right',
@@ -100,12 +100,13 @@
     </div>
     <div class="center">
       <div class="form" />
-      <label for="name">Name</label><br />
+      <label for="name">Name of your application</label><br />
       <input
         type="text"
         class="input_details"
         id="input_name"
         name="name"
+        placeholder="My App"
         bind:value={state.name}
         on:change={e => {
           handleChange(e);
@@ -118,6 +119,7 @@
         class="input_details"
         id="input_homepageUrl"
         name="homepageUrl"
+        placeholder="https://example.com"
         bind:value={state.homepageUrl}
         on:change={handleChange}
       /><br />
@@ -138,6 +140,7 @@
         class="input_details"
         id="input_callbackUrl"
         name="callbackUrl"
+        placeholder="https://example.com/callback"
         bind:value={state.callbackUrl}
         on:change={handleChange}
       /><br />

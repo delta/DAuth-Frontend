@@ -9,7 +9,7 @@
 <script lang="ts">
   import { toasts } from 'svelte-toasts';
   import config from '../../env';
-  import { axiosInstance } from 'src/utils/axios';
+  import { axiosInstance } from '../utils/axios';
   import 'intl-tel-input/build/js/utils';
   import { navigate } from 'svelte-routing';
   import intlTelInput from 'intl-tel-input';
@@ -117,7 +117,7 @@
             title: 'Oops',
             description:
               error.response.data.message ||
-              error.response.data.errors[0].msg ||
+              error.response.data.errors[1].msg ||
               'Something went wrong, please try again!',
             duration: 10000, // 0 or negative to avoid auto-remove
             placement: 'bottom-right',
@@ -142,7 +142,7 @@
       </div>
       <div class="center">
         <div class="form" />
-        <label for="name">Name</label><br />
+        <label for="name">Full Name</label><br />
         <input
           type="text"
           class="input_details"
@@ -177,7 +177,7 @@
           {/each}
         </select><br />
         <br />
-        <label for="batch">Batch</label><br />
+        <label for="batch">Year of Graduation</label><br />
         <input
           type="number"
           class="input_details"

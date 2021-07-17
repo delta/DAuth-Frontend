@@ -56,7 +56,7 @@
           title: 'Oops',
           description:
             error.response.data.message ||
-            error.response.data.errors[0].msg ||
+            error.response.data.errors[1].msg ||
             'Something went wrong, please try again!',
           duration: 10000, // 0 or negative to avoid auto-remove
           placement: 'bottom-right',
@@ -81,6 +81,7 @@
         type="text"
         class="input_details"
         name="webmailId"
+        placeholder="Your_roll_number@nitt.edu"
         bind:value={webmailId}
         on:change={e => {
           handleChange(e);
