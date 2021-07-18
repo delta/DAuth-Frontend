@@ -3,6 +3,9 @@
     background-color: var(--theme-background);
     color: var(--theme-text);
   }
+  #logoutBtn:hover{
+    cursor: pointer;
+  }
 </style>
 
 <script lang="ts">
@@ -104,15 +107,15 @@
       {#if $auth == 'true'}
         {#if window.matchMedia('(min-width: 540px)').matches}
           <nav class="navbar">
-            <button class="nav-links" id="logoutBtn" on:click={logout}
-              ><div class="text-button">Logout</div></button
-            >
             <Link to="/dashboard" class="nav-links"
               ><div class="text-button">Profile</div></Link
             >
             <Link to="/apps" class="nav-links"><div class="text-button">Apps</div></Link>
             <Link to="/client-manager" class="nav-links"
               ><div class="text-button">Clients</div></Link
+            >
+            <button class="nav-links" id="logoutBtn" on:click={logout}
+              ><div class="text-button">Logout</div></button
             >
             <ThemeToggle />
           </nav>

@@ -2,6 +2,9 @@
   main {
     font-family: sans-serif;
     text-align: center;
+    display: flex;
+    min-height: 80vh;
+    align-items: center;
   }
 </style>
 
@@ -10,7 +13,6 @@
   import { toasts } from 'svelte-toasts';
   import config from '../../env';
   import { axiosInstance } from '../utils/axios';
-  import { Button } from 'svelte-materialify';
   import { getContext, onMount } from 'svelte';
   import logo from '../statics/deltaLogoGreen.png';
   let { theme } = getContext('theme');
@@ -89,7 +91,7 @@
       />
       <br />
       <div class="registerContainer">
-        <Button Tile class="submit_button" type="submit" on:click={verify}>Submit</Button>
+        <button class="submit_button" type="submit" on:click={verify}>Submit</button>
         <div class="navigateOption">
           <p>Already have an account?</p>
           <Link to="/" class="navigateLink">Login Now</Link>

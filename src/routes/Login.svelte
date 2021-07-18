@@ -2,6 +2,9 @@
   main {
     font-family: sans-serif;
     text-align: center;
+    display: flex;
+    min-height: 80vh;
+    align-items: center;
   }
 </style>
 

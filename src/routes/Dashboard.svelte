@@ -79,7 +79,8 @@
     </div>
     <br />
     <div class="info">
-      {userInfo.phoneNumber}<br />{userInfo.department} | Batch: {userInfo.year}
+      {userInfo.phoneNumber}<br />
+      <!-- {userInfo.department} | Batch: {userInfo.year} -->
     </div>
   </div>
 </main>
