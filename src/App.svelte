@@ -3,7 +3,7 @@
     background-color: var(--theme-background);
     color: var(--theme-text);
   }
-  #logoutBtn:hover{
+  #logoutBtn:hover {
     cursor: pointer;
   }
 </style>
@@ -25,7 +25,6 @@
   import { axiosInstance } from 'src/utils/axios';
   import Dashboard from './routes/Dashboard.svelte';
   import config from '../env';
-  import { onMount } from 'svelte';
   import { auth } from './utils/auth';
   import { Footer, AppBar, Icon } from 'svelte-materialify';
   import Error from './routes/Error.svelte';
@@ -142,19 +141,24 @@
       {/if}
 
       <Route path="register" component={Register} bind:isauth />
-      <Route path="dashboard" component={Dashboard} />
-      <Route path="registerdetails" component={RegistrationDetails} bind:isauth />
+      <Route path="registerdetails/:token" let:params bind:isauth >
+        <RegistrationDetails token={params.token} />
+        </Route>
       <Route path="authorize" component={AuthorizeApp} bind:isauth />
       <Route path="redirect" component={Redirect} bind:isauth />
-      <Route path="new-client" component={RegisterClient} />
-      <Route path="client-manager" component={Clients} />
-      <Route path="client-details/:id" let:params>
-        <ClientDetails id={params.id} />
-      </Route>
       <Route path="/*" component={Error} />
+      <Route path="**/" component={Error}/>
       <Route path="verify" component={VerifyEmail} />
       <Route path="/" component={Login} bind:isauth />
-      <Route path="apps" component={AuthorizedApps} bind:isauth />
+      {#if $auth=='true'}
+        <Route path="dashboard" component={Dashboard} bind:isauth />
+        <Route path="new-client" component={RegisterClient} bind:isauth />
+        <Route path="client-manager" component={Clients} bind:isauth />
+        <Route path="client-details/:id" let:params bind:isauth>
+          <ClientDetails id={params.id} />
+        </Route>
+        <Route path="apps" component={AuthorizedApps} bind:isauth />
+      {/if}
     </div>
     <Footer class="love-footer-dark">Made with ❤ by Delta Force</Footer>
     <ToastContainer let:data><FlatToast {data} /></ToastContainer>

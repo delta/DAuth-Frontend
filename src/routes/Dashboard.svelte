@@ -53,6 +53,8 @@
   let userInfo: any = {};
 
   onMount(() => {
+    let element: HTMLBodyElement = document.querySelector('.navbar');
+    element.style.display = 'flex';
     auth.subscribe(is_auth => {
       isauth = is_auth;
       if (isauth == 'false') {

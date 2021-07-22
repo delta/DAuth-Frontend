@@ -26,7 +26,7 @@
         url: `${config.backendurl}/auth/email/verify/${token}`
       })
         .then(result => {
-          navigate('/registerdetails', { replace: true });
+          navigate(`/registerdetails/${token}`, { replace: true });
           toasts.add({
             title: 'Success',
             description: result.data.message,
