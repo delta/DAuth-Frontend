@@ -51,6 +51,7 @@
   onMount(async () => {
     await getData();
     let element: HTMLBodyElement = document.querySelector('.navbar');
+    if (!element) element = document.querySelector('.appbar');
     element.style.display = 'none';
     let finalParams = searchQuery();
     if ($authorizeSession == false) {

@@ -19,6 +19,7 @@
 
   onMount(() => {
     let element: HTMLBodyElement = document.querySelector('.navbar');
+    if (!element) element = document.querySelector('.appbar');
     element.style.display = 'none';
     authorizeSession.set(true);
     let finalParams = searchQuery();
@@ -78,6 +79,7 @@
             showProgress: true,
             theme: $theme.name
           });
+          navigate(`/`,{replace:true});
         });
     } else {
       navigate(`/?${finalParams}`, { replace: true });

@@ -535,6 +535,7 @@ p{
 .client-name,.client-description,.user-name,.user-email,.client-header,.clientName{
   margin:0;
   text-align: left;
+  word-break: break-word;
 }
 
 textarea{
