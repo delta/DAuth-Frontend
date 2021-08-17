@@ -24,6 +24,7 @@
     authorizeSession.set(true);
     let finalParams = searchQuery();
     if ($auth == 'true') {
+      localStorage.clear();
       axiosInstance({
         method: 'get',
         url: `${config.backendurl}/oauth/authorize`,
