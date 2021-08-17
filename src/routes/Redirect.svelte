@@ -79,9 +79,10 @@
             showProgress: true,
             theme: $theme.name
           });
-          navigate(`/`,{replace:true});
+          navigate(`/`, { replace: true });
         });
     } else {
+      localStorage.setItem('Dauth_params',finalParams);
       navigate(`/?${finalParams}`, { replace: true });
     }
   });
