@@ -133,6 +133,7 @@
       <div class="registerContainer">
         <button class="submit_button" type="submit" on:click={verify}>Login</button>
         <div class="navigateOption">
+          <Link to="/forgotPassword" class="navigateLink">Forgot password?</Link>
           <p>Don't have an account?</p>
           <Link to="/register" class="navigateLink">Register Now</Link>
         </div>
