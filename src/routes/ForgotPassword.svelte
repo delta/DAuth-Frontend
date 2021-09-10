@@ -16,23 +16,13 @@
   import { navigate } from 'svelte-routing';
   let { theme } = getContext('theme');
 
-  onMount(() => {
-    document
-      .querySelector('.form')
-      .addEventListener('keypress', function (e: KeyboardEvent) {
-        if (e.key === 'Enter') {
-          verifyEmail();
-        }
-      });
-  });
-
   let webmailId = '';
 
   function handleChange(e) {
     webmailId = e.target.value;
   }
 
-  function verifyEmail(){
+  function forgotPassword(){
     axiosInstance({
       method: 'post',
       url: `${config.backendurl}/auth/forgotPassword`,
@@ -72,7 +62,7 @@
 
 <main>
   <div class="form">
-    <h6>Please enter your webmail address to send password reset link!</h6>
+    <h6>Please enter your webmail address to get password reset link!</h6>
     <input
       type="text"
       class="input_details"
@@ -84,7 +74,7 @@
     />
     <br />
     <div class="registerContainer">
-      <button class="submit_button" type="submit" on:click={verifyEmail}>Submit</button>
+      <button class="submit_button" type="submit" on:click={forgotPassword}>Submit</button>
     </div>
   </div>
 </main>
