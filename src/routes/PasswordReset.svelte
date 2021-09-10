@@ -1,3 +1,13 @@
+<style>
+  main {
+    font-family: sans-serif;
+    text-align: center;
+    display: flex;
+    min-height: 80vh;
+    align-items: center;
+  }
+</style>
+
 <script lang="ts">
   import { axiosInstance } from 'src/utils/axios';
   import { getContext } from 'svelte';
@@ -11,77 +21,66 @@
   let token: string = parameter.get('token');
   let p1 = '';
   let p2 = '';
-  
-  function handleChange1(e){
+
+  function handleChange1(e) {
     p1 = e.target.value;
   }
-  function handleChange2(e){
+  function handleChange2(e) {
     p2 = e.target.value;
   }
-  function submit(){
-    if(p1.length >= 6 && p2.length >= 6){
-    axiosInstance({
-      method: 'post',
-      url: `${config.backendurl}/auth/resetPassword`,
-      data: {
-        email: webmailId,
-        token: token,
-        password: p1,
-        repeatPassword: p2
-      },
-      headers: { 'Content-Type': 'application/json' }
-    })
-      .then(response => {
-        toasts.add({
-          title: 'Success',
-          description: response.data.message,
-          duration: 10000, // 0 or negative to avoid auto-remove
-          placement: 'bottom-right',
-          type: 'success',
-          showProgress: true,
-          theme: $theme.name
-        });
-        navigate('/', {replace: true});
+  function submit() {
+    if (p1.length >= 6 && p2.length >= 6) {
+      axiosInstance({
+        method: 'post',
+        url: `${config.backendurl}/auth/resetPassword`,
+        data: {
+          email: webmailId,
+          token: token,
+          password: p1,
+          repeatPassword: p2
+        },
+        headers: { 'Content-Type': 'application/json' }
       })
-      .catch(error => {
-        toasts.add({
-          title: 'Oops',
-          description:
-            error.response.data.message ||
-            error.response.data.errors[0].msg ||
-            'Something went wrong, please try again!',
-          duration: 10000, // 0 or negative to avoid auto-remove
-          placement: 'bottom-right',
-          type: 'error',
-          showProgress: true,
-          theme: $theme.name
+        .then(response => {
+          toasts.add({
+            title: 'Success',
+            description: response.data.message,
+            duration: 10000, // 0 or negative to avoid auto-remove
+            placement: 'bottom-right',
+            type: 'success',
+            showProgress: true,
+            theme: $theme.name
+          });
+          navigate('/', { replace: true });
+        })
+        .catch(error => {
+          toasts.add({
+            title: 'Oops',
+            description:
+              error.response.data.message ||
+              error.response.data.errors[0].msg ||
+              'Something went wrong, please try again!',
+            duration: 10000, // 0 or negative to avoid auto-remove
+            placement: 'bottom-right',
+            type: 'error',
+            showProgress: true,
+            theme: $theme.name
+          });
+          navigate('/', { replace: true });
         });
-        navigate('/', {replace: true});
+    } else {
+      toasts.add({
+        title: 'Oops',
+        description: 'Passwords should be atleast 6 characters!',
+        duration: 10000, // 0 or negative to avoid auto-remove
+        placement: 'bottom-right',
+        type: 'error',
+        showProgress: true,
+        theme: $theme.name
       });
-    }else{
-        toasts.add({
-          title: 'Oops',
-          description:
-            'Passwords should be atleast 6 characters!',
-          duration: 10000, // 0 or negative to avoid auto-remove
-          placement: 'bottom-right',
-          type: 'error',
-          showProgress: true,
-          theme: $theme.name
-        });
-      }
     }
-</script>
-
-<style>
-  main {
-    font-family: sans-serif;
-    text-align: center;
-    display: flex;
-    min-height: 80vh;
-    align-items: center;
   }
-</style>
+</script>
 
 <main>
   <div class="form">

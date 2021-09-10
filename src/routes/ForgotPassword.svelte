@@ -12,7 +12,7 @@
   import { toasts } from 'svelte-toasts';
   import config from '../../env';
   import { axiosInstance } from '../utils/axios';
-  import { getContext, onMount } from 'svelte';
+  import { getContext } from 'svelte';
   import { navigate } from 'svelte-routing';
   let { theme } = getContext('theme');
 

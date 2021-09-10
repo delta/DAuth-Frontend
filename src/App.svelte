@@ -157,9 +157,9 @@
       <Route path="/*" component={Error} />
       <Route path="**/" component={Error} />
       <Route path="verify" component={VerifyEmail} />
-      <Route path="forgotPassword" component={ForgotPassword}/>
+      <Route path="forgotPassword" component={ForgotPassword} />
       <Route path="/" component={Login} bind:isauth />
-      <Route path="/resetPassword" component={PasswordReset}/>
+      <Route path="/resetPassword" component={PasswordReset} />
       {#if $auth == 'true'}
         <Route path="dashboard" component={Dashboard} bind:isauth />
         <Route path="new-client" component={RegisterClient} bind:isauth />
