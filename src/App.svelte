@@ -31,7 +31,7 @@
   import Error from './routes/Error.svelte';
   import VerifyEmail from './routes/VerifyEmail.svelte';
   import AuthorizedApps from './routes/AuthorizedApps.svelte';
-  import { mdiLogout, mdiApps, mdiAccount, mdiAccountMultiplePlus } from '@mdi/js';
+  import { mdiLogout, mdiApps, mdiAccount, mdiAccountMultiplePlus, mdiBookOpenVariant } from '@mdi/js';
   import PasswordReset from './routes/PasswordReset.svelte';
 
   let isauth = '';
