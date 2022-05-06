@@ -17,41 +17,10 @@
   import { getContext, onMount } from 'svelte';
   let { theme } = getContext('theme');
 
-  let userInfo: any = {};
-
-  const getUserDetails = async () => {
-    await axiosInstance({
-      method: 'get',
-      url: `${config.backendurl}/user/apps`,
-      headers: { 'Content-Type': 'application/json' }
-    })
-      .then(
-        (response: {
-          data: {
-            apps: {
-              id: string;
-              name: string;
-              description: string;
-              icon: string;
-              redirect_url: string;
-              created_at: string;
-              updated_at: string;
-            }[];
-          };
-        }) => {
-          userInfo = response.data;
-        }
-      )
-      .catch(error => {
-        return {};
-      });
-    return userInfo;
-  };
-
   //get all fields from query params
   let finalParams = searchQuery();
 
-  onMount(async () => {
+  onMount(() => {
     //handle nav bar visibility depending on screen size (hiding nav bar because loader page)
     let element: HTMLBodyElement = document.querySelector('.navbar');
     if (!element) element = document.querySelector('.appbar');
@@ -61,20 +30,7 @@
 
     //in case the user is logged in
     if ($auth == 'true') {
-      userInfo = await getUserDetails();
-
-      //check if the batch details exist or not, if not, redirect to edit profile page.
-      if (
-        userInfo.batch == 'NULL' ||
-        userInfo.batch == null ||
-        userInfo.batch == 'null' ||
-        userInfo.batch.length == 0
-      ) {
-        localStorage.setItem('Dauth_params', finalParams);
-        navigate(`/editProfile?${finalParams}`, { replace: true });
-        localStorage.removeItem('Dauth_params');
-      } else {
-        axiosInstance({
+       axiosInstance({
           method: 'get',
           url: `${config.backendurl}/oauth/authorize`,
           headers: { 'Content-Type': 'application/json' },
@@ -134,7 +90,6 @@
             });
             navigate(`/`, { replace: true });
           });
-      }
     } else {
       localStorage.setItem('Dauth_params', finalParams);
       navigate(`/?${finalParams}`, { replace: true });
