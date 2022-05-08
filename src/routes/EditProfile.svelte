@@ -75,7 +75,6 @@
   });
 
   function save() {
-    console.log(window.location.toString());
     if (
       userInfo.name &&
       userInfo.name.length != 0 &&
