@@ -20,6 +20,8 @@
   import { onMount, getContext } from 'svelte';
   import logo from '../statics/dauth-full.png';
   let { theme } = getContext('theme');
+  import { auth } from '../utils/auth';
+
   onMount(() => {
     document
       .querySelector('.center')
@@ -28,6 +30,10 @@
           handleSubmit();
         }
       });
+
+    if (!$auth) {
+      navigate(`/?redirect=${window.location.pathname}`, { replace: true });
+    }
   });
   let state = {
     name: '',
