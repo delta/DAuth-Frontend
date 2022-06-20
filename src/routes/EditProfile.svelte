@@ -37,9 +37,6 @@
   import { toasts } from 'svelte-toasts';
   import { axiosInstance } from '../utils/axios';
   import config from '../../env';
-  import { searchQuery } from './../utils/queryHandler';
-
-  let isauth = 'false';
 
   let { theme } = getContext('theme');
   let userInfo: any = {};
@@ -62,12 +59,11 @@
     let element: HTMLBodyElement = document.querySelector('.navbar');
     if (!element) element = document.querySelector('.appbar');
     element.style.display = 'flex';
-    auth.subscribe(is_auth => {
-      isauth = is_auth;
-      if (isauth == 'false') {
-        navigate('/', { replace: true });
-      }
-    });
+
+    if (!$auth) {
+      navigate(`/?redirect=${window.location.pathname}`, { replace: true });
+    }
+
     user.subscribe(userDetails => {
       userInfo = userDetails;
     });

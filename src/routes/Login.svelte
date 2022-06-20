@@ -18,8 +18,7 @@
   import logo from '../statics/dauth-full.png';
 
   let { theme } = getContext('theme');
-  export let isauth;
-  //if (isauth && isauth == 'true') navigate('/dashboard', { replace: true });
+
   let webmailId = '';
   let password = '';
   onMount(() => {
@@ -30,23 +29,10 @@
           verify();
         }
       });
-    axiosInstance({
-      method: 'get',
-      url: `${config.backendurl}/auth/is-auth`,
-      headers: { 'Content-Type': 'application/json' }
-    })
-      .then(response => {
-        localStorage.setItem('isDAuth', 'true');
-        auth.set(localStorage.getItem('isDAuth'));
-        isauth = $auth;
-        navigate('/dashboard', { replace: true });
-      })
-      .catch(error => {
-        localStorage.removeItem('isDAuth');
-        isauth = $auth;
-        auth.set(localStorage.getItem('isDAuth'));
-      });
+
+    if ($auth) navigate('/dashboard', { replace: true });
   });
+
   function handlechange(e) {
     if (e.target.name == 'webmailId') webmailId = e.target.value;
     else password = e.target.value;
@@ -66,9 +52,15 @@
         auth.set('true');
         let finalParams = localStorage.getItem('Dauth_params');
         localStorage.removeItem('Dauth_params');
-        if (!finalParams) navigate('/dashboard', { replace: true });
-        else {
+
+        const params = new URLSearchParams(window.location.search);
+
+        if (finalParams) {
           navigate(`/redirect?${finalParams}`, { replace: true });
+        } else if (params.has('redirect')) {
+          navigate(params.get('redirect'), { replace: true });
+        } else {
+          navigate('/dashboard', { replace: true });
         }
         toasts.add({
           title: 'Success!',

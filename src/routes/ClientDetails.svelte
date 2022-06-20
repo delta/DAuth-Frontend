@@ -12,6 +12,7 @@
   import { toasts } from 'svelte-toasts';
   import { navigate } from 'svelte-routing';
   import config from '../../env';
+  import { auth } from 'src/utils/auth';
   export let id;
   let clientSecret;
   let { theme } = getContext('theme');
@@ -60,6 +61,7 @@
     return myClient;
   }
   onMount(async () => {
+    if (!$auth) navigate(`/?redirect=${window.location.pathname}`, { replace: true });
     await getClients();
   });
   function updateClient() {

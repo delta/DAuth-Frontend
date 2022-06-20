@@ -33,6 +33,12 @@
   import user from '../utils/user';
   import { fetchUserData } from '../utils/user';
   import { navigate } from 'svelte-routing';
+  import { onMount } from 'svelte';
+  import { auth } from '../utils/auth';
+
+  onMount(() => {
+    if (!$auth) navigate(`/?redirect=${window.location.pathname}`, { replace: true });
+  });
 
   let apps = [];
   export let isauth = localStorage.getItem('isDAuth');

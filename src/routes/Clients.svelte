@@ -14,6 +14,9 @@
   import { toasts } from 'svelte-toasts';
   import config from '../../env';
   let { theme } = getContext('theme');
+  import { auth } from '../utils/auth';
+  import { navigate } from 'svelte-routing';
+
   let myClients = [
     {
       name: '',
@@ -47,6 +50,8 @@
     return myClients;
   }
   onMount(async () => {
+    if (!$auth) navigate(`/?redirect=${window.location.pathname}`, { replace: true });
+
     await getClients();
   });
 </script>

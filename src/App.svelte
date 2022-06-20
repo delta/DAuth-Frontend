@@ -41,6 +41,7 @@
   } from '@mdi/js';
   import PasswordReset from './routes/PasswordReset.svelte';
   import EditProfile from './routes/EditProfile.svelte';
+  import { onMount } from 'svelte';
 
   let isauth = '';
   let url = '';
@@ -49,6 +50,25 @@
       isauth = value;
     });
   }
+
+  onMount(() => {
+    axiosInstance({
+      method: 'get',
+      url: `${config.backendurl}/auth/is-auth`,
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then(response => {
+        localStorage.setItem('isDAuth', 'true');
+        auth.set(localStorage.getItem('isDAuth'));
+        isauth = $auth;
+      })
+      .catch(error => {
+        localStorage.removeItem('isDAuth');
+        isauth = $auth;
+        auth.set(localStorage.getItem('isDAuth'));
+      });
+  });
+
   function logout() {
     axiosInstance({
       method: 'post',
@@ -83,6 +103,8 @@
           showProgress: true,
           theme: localStorage.getItem('DAuth-theme')
         });
+        // navigating to / even if logout fails
+        navigate('/', { replace: true });
       });
   }
 </script>
@@ -172,16 +194,14 @@
       <Route path="forgotPassword" component={ForgotPassword} />
       <Route path="/" component={Login} bind:isauth />
       <Route path="/resetPassword" component={PasswordReset} />
-      {#if $auth == 'true'}
-        <Route path="dashboard" component={Dashboard} bind:isauth />
-        <Route path="new-client" component={RegisterClient} bind:isauth />
-        <Route path="client-manager" component={Clients} bind:isauth />
-        <Route path="client-details/:id" let:params bind:isauth>
-          <ClientDetails id={params.id} />
-        </Route>
-        <Route path="apps" component={AuthorizedApps} bind:isauth />
-        <Route path="editProfile" component={EditProfile} bind:isauth />
-      {/if}
+      <Route path="dashboard" component={Dashboard} bind:isauth />
+      <Route path="new-client" component={RegisterClient} bind:isauth />
+      <Route path="client-manager" component={Clients} bind:isauth />
+      <Route path="client-details/:id" let:params bind:isauth>
+        <ClientDetails id={params.id} />
+      </Route>
+      <Route path="apps" component={AuthorizedApps} bind:isauth />
+      <Route path="editProfile" component={EditProfile} bind:isauth />
     </div>
     <Footer class="love-footer-dark"
       >Made with ❤ by <a href="https://delta.nitt.edu" style="color: #3bbf3b !important"
